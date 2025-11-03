@@ -34,7 +34,21 @@ async function getMovieById_controller(req,res){
     }
 }
 
+
+async function deleteMovie_controller(req,res) {
+    try {
+        const response = await movieService.deleteMovie(req.params.movieId);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully delete the movie details !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     movieCreate_controller,
-    getMovieById_controller
+    getMovieById_controller,
+    deleteMovie_controller
 }

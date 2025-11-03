@@ -20,7 +20,13 @@ async function getMovieById(id) {
     const movie = await Movie.findById(id);
     return movie;
 }
+
+async function deleteMovie(id) {
+    const response = await Movie.deleteOne({_id : id});
+    return response;
+}
 module.exports = {
     createMovie,
-    getMovieById
+    getMovieById,
+    deleteMovie
 }

@@ -14,4 +14,9 @@ movieRouter.post('/',movieController.movieCreate_controller);
 */
 movieRouter.get('/:movieId', movieController.getMovieById_controller);
 
+/**
+ * http://localhost:7000/mba/api/v1/movies/:movieId
+*/
+movieRouter.delete('/:movieId', movieController.deleteMovie_controller);
+
 module.exports = movieRouter;
