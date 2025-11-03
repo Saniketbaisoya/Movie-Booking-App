@@ -21,6 +21,12 @@ async function getMovieById(id) {
     return movie;
 }
 
+/**
+ * Now yha hmne use kiya hai deleteOne
+ * Now jb bhi yeah delete krta hai toh yeah basically do parameters deta hai 
+ * First is acknowledged or deleteCount now if the acknowledged is true that means the deleteOne is working but if false then not working
+ * DeleteCount basically determines that how many data is deleted, but delete atmost one regardless of the single option.
+*/
 async function deleteMovie(id) {
     const response = await Movie.deleteOne({_id : id});
     return response;
