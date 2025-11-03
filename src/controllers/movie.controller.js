@@ -20,6 +20,21 @@ async function movieCreate_controller(req, res) {
         return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(ErrorResponse);
     }
 }
+
+async function getMovieById_controller(req,res){
+    try {
+        const response = await movieService.getMovieById(req.params.movieId);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetch the movie details !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     movieCreate_controller,
+    getMovieById_controller
 }

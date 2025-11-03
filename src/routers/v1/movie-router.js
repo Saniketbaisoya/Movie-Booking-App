@@ -9,4 +9,9 @@ const movieRouter = express.Router();
 */
 movieRouter.post('/',movieController.movieCreate_controller);
 
+/**
+ * http://localhost:7000/mba/api/v1/movies/:movieId
+*/
+movieRouter.get('/:movieId', movieController.getMovieById_controller);
+
 module.exports = movieRouter;

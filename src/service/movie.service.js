@@ -15,6 +15,12 @@ async function createMovie(data) {
         }
     }
 }
+
+async function getMovieById(id) {
+    const movie = await Movie.findById(id);
+    return movie;
+}
 module.exports = {
-    createMovie
+    createMovie,
+    getMovieById
 }
