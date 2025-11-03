@@ -38,6 +38,6 @@ const movieSchema = new mongoose.Schema({
 },{timestamps : true}
 );
 
-const movie = mongoose.model('movie', movieSchema); // create a new model
+const Movie = mongoose.model('Movie', movieSchema); // create a new model
 
-module.exports = movie; // return a model
+module.exports = Movie; // return a model
