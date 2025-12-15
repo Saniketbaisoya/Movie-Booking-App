@@ -30,4 +30,9 @@ movieRouter.put('/:movieId',movieController.updateMovie_controller);
 */
 movieRouter.patch('/:movieId',movieController.updateMovie_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/movies/:movieId
+*/
+movieRouter.get('/',movieController.searchMovie_controller);
+
 module.exports = movieRouter;

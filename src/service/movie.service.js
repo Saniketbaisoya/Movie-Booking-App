@@ -58,9 +58,21 @@ async function updateMovie(id, data){
     }
     
 }
+async function searchMovie(filterData){
+    let query = {};
+    if(filterData.name){
+        query.name = filterData.name;
+    }
+    let movies = await Movie.find(query);
+    if(movies.length <= 0){
+        return {err: "Not able to fetch the query movies", code: StatusCodes.NOT_FOUND};
+    }
+    return movies;
+}
 module.exports = {
     createMovie,
     getMovieById,
     deleteMovie,
-    updateMovie
+    updateMovie,
+    searchMovie
 }

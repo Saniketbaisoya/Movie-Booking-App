@@ -72,10 +72,27 @@ async function updateMovie_controller(req,res){
     }
 }
 
-async funtion searchMovie_con
+async function searchMovie_controller(req,res){
+    try{
+        const response = await movieService.searchMovie(req.query);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            ErrorResponse.message = "This movie is currently not present !!";
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched the movies !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    }catch(error){
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     movieCreate_controller,
     getMovieById_controller,
     deleteMovie_controller,
-    updateMovie_controller
+    updateMovie_controller,
+    searchMovie_controller
 }
