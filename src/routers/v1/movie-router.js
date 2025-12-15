@@ -23,11 +23,11 @@ movieRouter.delete('/:movieId', movieController.deleteMovie_controller);
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
 */
-movieRouter.put('/:movieId',movieController.updateMovie_conrtoller);
+movieRouter.put('/:movieId',movieController.updateMovie_controller);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
 */
-movieRouter.patch('/:movieId',movieController.updateMovie_conrtoller);
+movieRouter.patch('/:movieId',movieController.updateMovie_controller);
 
 module.exports = movieRouter;

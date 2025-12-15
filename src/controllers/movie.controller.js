@@ -53,7 +53,7 @@ async function deleteMovie_controller(req,res) {
     }
 }
 
-async function updateMovie_conrtoller(req,res){
+async function updateMovie_controller(req,res){
     try {
         const response = await movieService.updateMovie(req.params.movieId, req.body);
         // yha hmne voh client side error ko yha dekha hai and server error yani voh error jo throw hoga, usko hmne catch mai dekh liya hain....
@@ -71,9 +71,11 @@ async function updateMovie_conrtoller(req,res){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+
+async funtion searchMovie_con
 module.exports = {
     movieCreate_controller,
     getMovieById_controller,
     deleteMovie_controller,
-    updateMovie_conrtoller
+    updateMovie_controller
 }
