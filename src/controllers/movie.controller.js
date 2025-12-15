@@ -10,6 +10,11 @@ const {StatusCodes} = require('http-status-codes');
 async function movieCreate_controller(req, res) {
     try {
         const response = await movieService.createMovie(req.body);
+        if(response.err){ // true
+            ErrorResponse.error = err;
+            ErrorResponse.message = "The movie cannot be created !!";
+            return res.status(response.code).json(ErrorResponse);
+        }
         SuccessResponse.data = response;
         SuccessResponse.message = "SuccessFully Created the movie !!";
         return res.status(StatusCodes.CREATED).json(SuccessResponse);
@@ -47,8 +52,28 @@ async function deleteMovie_controller(req,res) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+
+async function updateMovie_conrtoller(req,res){
+    try {
+        const response = await movieService.updateMovie(req.params.movieId, req.body);
+        // yha hmne voh client side error ko yha dekha hai and server error yani voh error jo throw hoga, usko hmne catch mai dekh liya hain....
+        if(response.err){
+            ErrorResponse.error = response.err;
+            ErrorResponse.message = "The updates that we are trying to apply does'nt validate the schema";
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully update the movie details !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     movieCreate_controller,
     getMovieById_controller,
-    deleteMovie_controller
+    deleteMovie_controller,
+    updateMovie_conrtoller
 }

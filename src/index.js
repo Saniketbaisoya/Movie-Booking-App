@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
-// http://localhost:7000/mba/api
+// http://localhost:9999/mba/api
 app.use('/mba/api',router);
 
 

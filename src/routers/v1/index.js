@@ -4,7 +4,7 @@ const movieRouter = require('./movie-router');
 const v1Router = express.Router();
 
 /**
- * http://localhost:7000/mba/api/v1/movies
+ * http://localhost:9999/mba/api/v1/movies
 */
 v1Router.use('/movies',movieRouter);
 
