@@ -28,7 +28,7 @@ async function validateMovieCreate(req, res) {
         return res.status(StatusCodes.BAD_REQUEST).json(BadRequestError);
     }
     // validate the  director...
-    if(!req.body. director){
+    if(!req.body.director){
         BadRequestError.error = "The  director of the movie is not present in the request";
         return res.status(StatusCodes.BAD_REQUEST).json(BadRequestError);
     }
