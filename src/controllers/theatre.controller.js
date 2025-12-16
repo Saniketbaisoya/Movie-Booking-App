@@ -8,7 +8,7 @@ async function createTheare_controller(req,res){
         const response = await theatreService.createTheatre(payloadData);
         if(response.err){
             ErrorResponse.error = response.err;
-            ErrorResponse.message = "Not able to create the theatre";
+            ErrorResponse.message = "Validation failed on few parameters of the request body";
             return res.status(response.code).json(ErrorResponse);
         }
         SuccessResponse.data = response;
