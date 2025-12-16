@@ -7,11 +7,11 @@ const v1Router = express.Router();
 /**
  * http://localhost:9999/mba/api/v1/movies
 */
-v1Router.use('/movies',movieRouter);
+v1Router.use('/movies',movieRouter); // invoking the movieRouter in v1Router...
 
 /**
  * http://localhost:9999/mba/api/v1/theatre
 */
-v1Router.use('/theatre',theatreRouter);
+v1Router.use('/theatre',theatreRouter); // invoking the theatreRouter in v1Router...
 
 module.exports = v1Router;

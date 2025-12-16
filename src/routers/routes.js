@@ -6,7 +6,7 @@ const router = express.Router();
 /**
  * http://localhost:9999/mba/api/v1
 */
-router.use('/v1',v1Router);
+router.use('/v1',v1Router); // invoking the v1Router in router...
 
 module.exports = {
     router

@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
 // http://localhost:9999/mba/api
-app.use('/mba/api',router);
+app.use('/mba/api',router); // invoking the router in app.
 
 
 app.listen(PORT,async ()=> {

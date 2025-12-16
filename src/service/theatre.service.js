@@ -2,7 +2,12 @@ const { StatusCodes } = require("http-status-codes");
 const Theatre = require("../models/theatre.model");
 
 async function createTheatre(payloadData){
+    const dataPresent = await Theatre.find(payloadData);
+    if(dataPresent){
+        return {err:"This theatre is already present",code: StatusCodes.UNPROCESSABLE_ENTITY};
+    }
     try {
+
         const response = await Theatre.create(payloadData);
         return response;
     } catch (error) {
