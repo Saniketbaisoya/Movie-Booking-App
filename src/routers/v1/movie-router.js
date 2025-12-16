@@ -1,6 +1,6 @@
 const express = require('express');
 const { movieController } = require('../../controllers');
-const { CreateMovieMiddleWare } = require('../../middlewares');
+const { MovieMiddleWare } = require('../../middlewares');
 
 const movieRouter = express.Router();
 
@@ -9,7 +9,7 @@ const movieRouter = express.Router();
  * http://localhost:9999/mba/api/v1/movies/
  * invoking the movieCreate_controller + createMovieMiddleware in movieRouter...
 */
-movieRouter.post('/',CreateMovieMiddleWare , movieController.movieCreate_controller);
+movieRouter.post('/', MovieMiddleWare, movieController.movieCreate_controller);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId

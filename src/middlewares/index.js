@@ -1,3 +1,4 @@
 module.exports = {
-    CreateMovieMiddleWare : require('./movie.middleware')
+    MovieMiddleWare: require('./movie.middleware'),
+    TheatreMiddleware: require('./theatre.middleware'),
 }
