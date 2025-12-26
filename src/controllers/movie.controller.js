@@ -43,6 +43,10 @@ async function getMovieById_controller(req,res){
 async function deleteMovie_controller(req,res) {
     try {
         const response = await movieService.deleteMovie(req.params.movieId);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
         SuccessResponse.data = response;
         SuccessResponse.message = "SuccessFully delete the movie details !!";
         return res.status(StatusCodes.OK).json(SuccessResponse);

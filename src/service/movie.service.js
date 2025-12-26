@@ -32,6 +32,12 @@ async function getMovieById(id) {
 */
 async function deleteMovie(id) {
     const response = await Movie.deleteOne({_id : id});
+    if(response.deletedCount == 0){
+        return {
+            err: "No record found for delete !!",
+            code: StatusCodes.BAD_REQUEST
+        }
+    }
     return response;
 }
 
