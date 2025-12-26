@@ -24,6 +24,18 @@ async function createTheatre(payloadData){
     }
 }
 
+async function getTheatreById(id){
+    const theatre = await Theatre.findById({_id: id});
+    if(!theatre){
+        return {
+            err: "No theatre found for the given id",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
+    return theatre;
+}
+
 module.exports = {
-    createTheatre
+    createTheatre,
+    getTheatreById
 }
