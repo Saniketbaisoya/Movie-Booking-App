@@ -21,6 +21,25 @@ async function createTheare_controller(req,res){
     }
 }
 
+
+async function getTheatreById_controller(req,res){
+    try {
+        const response = await theatreService.getTheatreById(req.params.id);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched the movie !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
-    createTheare_controller
+    createTheare_controller,
+    getTheatreById_controller
 }

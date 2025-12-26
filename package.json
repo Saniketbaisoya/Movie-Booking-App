@@ -4,7 +4,7 @@
   "description": "This is a Movie Booking Backend app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --ignore sessions.json "
+    "start": "npx nodemon src/index.js --ignore sessions.json "
   },
   "author": "Shaniket Baisoya",
   "license": "ISC",
