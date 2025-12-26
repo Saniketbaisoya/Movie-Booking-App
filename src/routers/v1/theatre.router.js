@@ -19,4 +19,9 @@ theatreRouter.get('/:id',theatreController.getTheatreById_controller);
 */
 theatreRouter.get('/', theatreController.getAllTheatre_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+*/
+theatreRouter.delete('/:id',theatreController.deleteTheatre_controller);
+
 module.exports = theatreRouter;
