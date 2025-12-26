@@ -31,6 +31,13 @@ async function getMovieById(id) {
  * DeleteCount basically determines that how many data is deleted, but delete atmost one regardless of the single option.
 */
 async function deleteMovie(id) {
+    const findFirst = await Movie.findById(id);
+    if(!findFirst){
+        return{
+            err: "No movie record found for the id provided !!",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
     const response = await Movie.deleteOne({_id : id});
     /**
      * if we wants to delete a movie but than there is no movie to delete....
@@ -41,8 +48,8 @@ async function deleteMovie(id) {
      */
     if(response.deletedCount == 0){
         return {
-            err: "No movie record found for the id provided !!",
-            code: StatusCodes.NOT_FOUND
+            err: "No movie found for further deletion !!",
+            code: StatusCodes.NOT_ACCEPTABLE
         }
     }
     return response;
