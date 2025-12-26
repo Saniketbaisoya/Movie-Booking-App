@@ -14,4 +14,9 @@ theatreRouter.post('/', TheatreMiddleware, theatreController.createTheare_contro
 */
 theatreRouter.get('/:id',theatreController.getTheatreById_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/theatre/
+*/
+theatreRouter.get('/', theatreController.getAllTheatre_controller);
+
 module.exports = theatreRouter;

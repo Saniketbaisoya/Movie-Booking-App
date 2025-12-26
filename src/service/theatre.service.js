@@ -35,7 +35,12 @@ async function getTheatreById(id){
     return theatre;
 }
 
+async function getAllTheatre(){
+    const response = await Theatre.find();
+    return response;
+}
 module.exports = {
     createTheatre,
-    getTheatreById
+    getTheatreById,
+    getAllTheatre
 }

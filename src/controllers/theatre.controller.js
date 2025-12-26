@@ -38,7 +38,25 @@ async function getTheatreById_controller(req,res){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+
+async function getAllTheatre_controller(req,res){
+    try {
+        const response = await theatreService.getAllTheatre();
+        if(!response){
+            ErrorResponse.error = "No theatre records present !!";
+            return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched all the movies !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     createTheare_controller,
-    getTheatreById_controller
+    getTheatreById_controller,
+    getAllTheatre_controller
 }
