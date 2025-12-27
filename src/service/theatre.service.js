@@ -43,8 +43,31 @@ async function getTheatreById(id){
     return theatre;
 }
 
+async function getAllTheatre(){
+    const response = await Theatre.find();
+    return response;
+}
 
+async function deleteTheatre(id){
+    const findFirst = await Theatre.findOne({_id: id});
+    if(!findFirst){
+        return{
+            err: "No theatre found for the given id",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
+    const response = await Theatre.deleteOne({_id: id});
+    if(response.deletedCount == 0){
+        return{
+            err: 'No theatre is presnt for further deletion !!',
+            code: StatusCodes.NOT_ACCEPTABLE
+        }
+    }
+    return response;
+}
 module.exports = {
     createTheatre,
-    getTheatreById
+    getTheatreById,
+    getAllTheatre,
+    deleteTheatre
 }
