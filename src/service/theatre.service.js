@@ -1,8 +1,16 @@
 const { StatusCodes } = require("http-status-codes");
 const Theatre = require("../models/theatre.model");
 
+/**
+ * Now there is common flow here, which is if there is error related with properties/client related error
+ * Then it will be handled by the service layer itself 
+ * But if there is any other error which is related to server then this will be handled by the controller layer
+ * Also the server related error is thrown by service but it is handled in controller layer
+ */
+
 async function createTheatre(payloadData){
-    const dataPresent = await Theatre.find(payloadData);
+    const { name, address, description } = payloadData;
+    const dataPresent = await Theatre.findOne({name, address, description});
     if(dataPresent){
         return {err:"This theatre is already present",code: StatusCodes.UNPROCESSABLE_ENTITY};
     }

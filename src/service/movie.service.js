@@ -31,7 +31,27 @@ async function getMovieById(id) {
  * DeleteCount basically determines that how many data is deleted, but delete atmost one regardless of the single option.
 */
 async function deleteMovie(id) {
+    const findFirst = await Movie.findById(id);
+    if(!findFirst){
+        return{
+            err: "No movie record found for the id provided !!",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
     const response = await Movie.deleteOne({_id : id});
+    /**
+     * if we wants to delete a movie but than there is no movie to delete....
+     * But byDefault they try delete the empty movie from database
+     * So this i will confirm by the deleteCount if it is 0 that means it no data is delete 
+     * So before sending the response to the controller we check if the deleteCount is 0 that means no record present to delete from database
+     * So we throw a custom error in err with StatusCodes.NOT_FOUND in code to controller
+     */
+    if(response.deletedCount == 0){
+        return {
+            err: "No movie found for further deletion !!",
+            code: StatusCodes.NOT_ACCEPTABLE
+        }
+    }
     return response;
 }
 
