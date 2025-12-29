@@ -88,7 +88,12 @@ async function updateMovieInTheatre(theatreId, movieIds, insert) {
         theatre.movies = savedMovieIds;
     }
     await theatre.save();
-    return theatre;
+    /**
+     * Now here when we return the theatre then in movies there are multiple movieIds mentioned and theatre would refernce it in db i.e -> database referencing
+     * Now when we do populate then it would be return all movies data of each referenced movieId
+     * Isliye populate ko final updated theatre pr lgaya kyuki uss theatre ko hmm return kr rhe hai isliye....
+     */
+    return theatre.populate('movies');
 }
 
 module.exports = {
