@@ -78,6 +78,7 @@ async function updateMovie(id, data){
     }
     
 }
+
 async function searchMovie(filterData){
     let query = {};
     if(filterData.name){

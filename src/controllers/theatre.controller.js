@@ -21,7 +21,6 @@ async function createTheare_controller(req,res){
     }
 }
 
-
 async function getTheatreById_controller(req,res){
     try {
         const response = await theatreService.getTheatreById(req.params.id);
