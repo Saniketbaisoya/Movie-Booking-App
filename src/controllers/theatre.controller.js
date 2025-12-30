@@ -78,9 +78,26 @@ async function deleteTheatre_controller(req,res){
     }
 }
 
+async function updateTheatre_controller(req,res){
+    try {
+        const response = await theatreService.updateTheatre(req.params.id, req.body);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully updated the theatre !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     createTheare_controller,
     getTheatreById_controller,
-    updateMovieInTheatre_controller,
-    deleteTheatre_controller
+    getAllTheatre_controller,
+    deleteTheatre_controller,
+    updateTheatre_controller
 }

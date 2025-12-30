@@ -9,7 +9,7 @@ const movieRouter = express.Router();
  * http://localhost:9999/mba/api/v1/movies/
  * invoking the movieCreate_controller + createMovieMiddleware in movieRouter...
 */
-movieRouter.post('/', MovieMiddleWare, movieController.movieCreate_controller);
+movieRouter.post('/', MovieMiddleWare.validateMovieCreate, movieController.movieCreate_controller);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
