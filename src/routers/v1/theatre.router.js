@@ -28,4 +28,15 @@ theatreRouter.get('/', theatreController.getAllTheatre_controller);
 */
 theatreRouter.delete('/:id',theatreController.deleteTheatre_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.patch('/:id',theatreController.updateTheatre_controller);
+
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.put('/:id',theatreController.updateTheatre_controller);
 module.exports = theatreRouter;

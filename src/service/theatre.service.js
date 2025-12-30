@@ -65,9 +65,20 @@ async function deleteTheatre(id){
     }
     return response;
 }
+
+async function updateTheatre(id, data){
+    const response = await Theatre.findByIdAndUpdate(id, data);
+    if(!response){
+        return {
+            err: "No theatre found for the given id",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
+}
 module.exports = {
     createTheatre,
     getTheatreById,
     getAllTheatre,
-    deleteTheatre
+    deleteTheatre,
+    updateTheatre
 }
