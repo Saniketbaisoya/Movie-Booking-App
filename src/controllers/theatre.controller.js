@@ -41,10 +41,10 @@ async function getTheatreById_controller(req,res){
 
 async function getAllTheatre_controller(req,res){
     try {
-        const response = await theatreService.getAllTheatre();
-        if(!response){
-            ErrorResponse.error = "No theatre records present !!";
-            return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+        const response = await theatreService.getAllTheatre(req.query);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
         }
         SuccessResponse.data = response;
         SuccessResponse.message = "SuccessFully fetched all the movies !!";

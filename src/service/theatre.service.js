@@ -43,9 +43,33 @@ async function getTheatreById(id){
     return theatre;
 }
 
-async function getAllTheatre(){
-    const response = await Theatre.find();
-    return response;
+async function getAllTheatre(data){
+    try {
+        let query = {};
+        if(data && data.city){
+            query.city = data.city
+        }
+        if(data && data.pincode){
+            query.pincode = data.pincode
+        }
+        if(data && data.name){
+            query.name = data.name
+        }
+        const response = await Theatre.find(query);
+        console.log(response);
+        if(!response){
+            return {
+                err: "No theatre records present !!",
+                code: StatusCodes.NOT_FOUND
+            }
+            
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+    
 }
 
 async function deleteTheatre(id){
