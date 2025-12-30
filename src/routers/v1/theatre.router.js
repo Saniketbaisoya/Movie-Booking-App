@@ -21,4 +21,10 @@ theatreRouter.get('/:id',theatreController.getTheatreById_controller);
 */
 theatreRouter.patch('/:id/movies', TheatreMiddleware.validateUpdateMovieInTheatreParams, theatreController.updateMovieInTheatre_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+ * invoking the deleteTheatre_controller in theatreRouter...
+*/
+theatreRouter.delete('/:id',theatreController.deleteTheatre_controller);
+
 module.exports = theatreRouter;

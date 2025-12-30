@@ -116,5 +116,6 @@ async function deleteTheatre(id){
 module.exports = {
     createTheatre,
     getTheatreById,
-    updateMovieInTheatre
+    updateMovieInTheatre,
+    deleteTheatre
 }
