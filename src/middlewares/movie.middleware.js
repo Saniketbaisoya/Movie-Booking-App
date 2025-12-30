@@ -37,4 +37,6 @@ async function validateMovieCreate(req, res, next) {
     next();
     
 }
-module.exports = validateMovieCreate;
+module.exports = {
+    validateMovieCreate
+};
