@@ -24,4 +24,23 @@ async function validateTheatreCreate(req,res,next){
     // }
     next();
 }
-module.exports = validateTheatreCreate;
+
+async function validateUpdateMovieInTheatreParams(req, res, next) {
+    if(req.body.insert == undefined){
+        ErrorResponse.message = "The insert parameter is missing in the request !!";
+        return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+    }
+    if(!req.body.movieIds || !(req.body.movieIds instanceof Array) || req.body.movieIds.length <= 0){
+        if(!req.body.movieIds) ErrorResponse.message = "No movies present in the request to be updated in theatre !!";
+        if(!(req.body.movieIds instanceof Array)) ErrorResponse.message = "Expected array of movies but found something else !!";
+        if(req.body.movieIds.length <= 0) ErrorResponse.message = "No movie present in the array provided !!"
+
+        return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+    }
+    next();
+}
+
+module.exports = {
+    validateTheatreCreate,
+    validateUpdateMovieInTheatreParams
+};
