@@ -17,14 +17,13 @@ async function createTheatre(payloadData){
             { description }
         ]
     });
-    console.log(dataPresent)
     if(dataPresent){
         if(dataPresent.name == name ){
-            message = "This theatre is already present at this name"
+            message = "This theatre is already present at this name";
         }else if(dataPresent.address == address ){
-            message = "This theatre is already present at this address"
+            message = "This theatre is already present at this address";
         }else if(dataPresent.description == description ){
-            message = "This theatre is already present at this description"
+            message = "This theatre is already present at this description";
         }
         return {
             err: message, 
