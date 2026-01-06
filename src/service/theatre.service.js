@@ -55,8 +55,19 @@ async function getAllTheatre(data){
         if(data && data.name){
             query.name = data.name
         }
+        /**
+         * Now yha sbse phele maine dekha ki data mai movieId hai ki nhi
+         * Then agr movieId hain toh movieId ko query mai dalege
+         * Now query mai jb hmm dalege toh movies field ko create krke then hmm usko add krege in the query
+         * Kyuki query hi hmara final variable hai jiske basis pr hmm theatre ki filteration krte hain....
+         * Now also Theatre schema mai movies krke field hain lekin voh array format mai hain
+         * Now array format mai hai toh lekin query ka movies ko bhi array mai bnane ke liye, hmne yha data.movieId ko array mai dalkr then usko insert kiya in movies of query
+         * that's why we use the $all, this is the imp case....
+         */
+        if(data && data.movieId){
+            query.movies = {$all: data.movieId}
+        }
         const response = await Theatre.find(query);
-        console.log(response);
         if(!response){
             return {
                 err: "No theatre records present !!",
