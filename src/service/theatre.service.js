@@ -17,14 +17,13 @@ async function createTheatre(payloadData){
             { description }
         ]
     });
-    console.log(dataPresent)
     if(dataPresent){
         if(dataPresent.name == name ){
-            message = "This theatre is already present at this name"
+            message = "This theatre is already present at this name";
         }else if(dataPresent.address == address ){
-            message = "This theatre is already present at this address"
+            message = "This theatre is already present at this address";
         }else if(dataPresent.description == description ){
-            message = "This theatre is already present at this description"
+            message = "This theatre is already present at this description";
         }
         return {
             err: message, 
@@ -197,17 +196,6 @@ async function getAllMoviesInTheatre(theatreId){
             err: "no such theatre found for the provided id",
             code: StatusCodes.NOT_FOUND
         }
-        const theatre = await Theatre.findById(theatreId);
-        if(!theatre){
-            return {
-                err: "No such theatre found for the provided id",
-                code: StatusCodes.NOT_FOUND
-            }
-        }
-        return theatre.populate('movies');
-    } catch (error) {
-        console.log(error);
-        throw error;
     }
     return response.populate('movies');
 }
