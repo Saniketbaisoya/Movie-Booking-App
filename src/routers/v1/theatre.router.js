@@ -11,6 +11,12 @@ const theatreRouter = express.Router();
 theatreRouter.post('/', TheatreMiddleware.validateTheatreCreate, theatreController.createTheare_controller);
 
 /**
+ * http://localhost:9999/mba/api/v1/theatre/
+ * invoking the getTheatreById_controller in theatreRouter...
+*/
+theatreRouter.get('/',theatreController.getAllTheatre_controller);
+
+/**
  * http://localhost:9999/mba/api/v1/theatre/:id --> (id is urlParams)
  * invoking the getTheatreById_controller in theatreRouter...
 */

@@ -114,8 +114,8 @@ async function updateTheatre_controller(req,res){
 }
 module.exports = {
     createTheare_controller,
-    getTheatreById_controller,
     getAllTheatre_controller,
+    getTheatreById_controller,
     deleteTheatre_controller,
     updateTheatre_controller,
     updateMovieInTheatre_controller
