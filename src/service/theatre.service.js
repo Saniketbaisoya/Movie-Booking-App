@@ -10,9 +10,26 @@ const Theatre = require("../models/theatre.model");
 
 async function createTheatre(payloadData){
     const { name, address, description } = payloadData;
-    const dataPresent = await Theatre.findOne({name, address, description});
+    const dataPresent = await Theatre.findOne({
+        $or: [
+            { name },
+            { address },
+            { description }
+        ]
+    });
+    console.log(dataPresent)
     if(dataPresent){
-        return {err:"This theatre is already present",code: StatusCodes.UNPROCESSABLE_ENTITY};
+        if(dataPresent.name == name ){
+            message = "This theatre is already present at this name"
+        }else if(dataPresent.address == address ){
+            message = "This theatre is already present at this address"
+        }else if(dataPresent.description == description ){
+            message = "This theatre is already present at this description"
+        }
+        return {
+            err: message, 
+            code: StatusCodes.UNPROCESSABLE_ENTITY
+        };  
     }
     try {
 
@@ -24,7 +41,10 @@ async function createTheatre(payloadData){
             Object.keys(error.errors).forEach((key)=> {
                 err[key] = error.errors[key].message
             });
-            return {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
+            return {
+                err: err,
+                code: StatusCodes.UNPROCESSABLE_ENTITY
+            };
         }else{
             console.log(error);
             throw error;
@@ -169,6 +189,18 @@ async function updateMovieInTheatre(theatreId, movieIds, insert){
         throw error;
     }
 }
+// 1 means show, 0 means not show in the json object...
+async function getAllMoviesInTheatre(theatreId){
+    const response = await Theatre.findById(theatreId, {name : 1, address: 1, movies: 1});
+    if(!response){
+        return {
+            err: "no such theatre found for the provided id",
+            code: StatusCodes.NOT_FOUND
+        }
+    }
+    return response.populate('movies');
+}
+
 
 async function deleteTheatre(id){
     const findFirst = await Theatre.findOne({_id: id});
@@ -203,5 +235,6 @@ module.exports = {
     getAllTheatre,
     deleteTheatre,
     updateTheatre,
-    updateMovieInTheatre
+    updateMovieInTheatre,
+    getAllMoviesInTheatre
 }

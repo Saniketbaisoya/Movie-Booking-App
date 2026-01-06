@@ -12,7 +12,7 @@ theatreRouter.post('/', TheatreMiddleware.validateTheatreCreate, theatreControll
 
 /**
  * http://localhost:9999/mba/api/v1/theatre/
- * invoking the getTheatreById_controller in theatreRouter...
+ * invoking the getAllTheatre_controller in theatreRouter...
 */
 theatreRouter.get('/',theatreController.getAllTheatre_controller);
 
@@ -44,4 +44,10 @@ theatreRouter.patch('/:id',theatreController.updateTheatre_controller);
  * invoking the updateTheatre_controller in theatreRouter...
 */
 theatreRouter.put('/:id',theatreController.updateTheatre_controller);
+
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id/movies
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.get('/:id/movies',theatreController.getAllMoviesInTheatre_controller);
 module.exports = theatreRouter;
