@@ -10,9 +10,26 @@ const Theatre = require("../models/theatre.model");
 
 async function createTheatre(payloadData){
     const { name, address, description } = payloadData;
-    const dataPresent = await Theatre.findOne({name, address, description});
+    const dataPresent = await Theatre.findOne({
+        $or: [
+            { name },
+            { address },
+            { description }
+        ]
+    });
+    console.log(dataPresent)
     if(dataPresent){
-        return {err:"This theatre is already present",code: StatusCodes.UNPROCESSABLE_ENTITY};
+        if(dataPresent.name == name ){
+            message = "This theatre is already present at this name"
+        }else if(dataPresent.address == address ){
+            message = "This theatre is already present at this address"
+        }else if(dataPresent.description == description ){
+            message = "This theatre is already present at this description"
+        }
+        return {
+            err: message, 
+            code: StatusCodes.UNPROCESSABLE_ENTITY
+        };  
     }
     try {
 
@@ -24,7 +41,10 @@ async function createTheatre(payloadData){
             Object.keys(error.errors).forEach((key)=> {
                 err[key] = error.errors[key].message
             });
-            return {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
+            return {
+                err: err,
+                code: StatusCodes.UNPROCESSABLE_ENTITY
+            };
         }else{
             console.log(error);
             throw error;
@@ -55,8 +75,19 @@ async function getAllTheatre(data){
         if(data && data.name){
             query.name = data.name
         }
+        /**
+         * Now yha sbse phele maine dekha ki data mai movieId hai ki nhi
+         * Then agr movieId hain toh movieId ko query mai dalege
+         * Now query mai jb hmm dalege toh movies field ko create krke then hmm usko add krege in the query
+         * Kyuki query hi hmara final variable hai jiske basis pr hmm theatre ki filteration krte hain....
+         * Now also Theatre schema mai movies krke field hain lekin voh array format mai hain
+         * Now array format mai hai toh lekin query ka movies ko bhi array mai bnane ke liye, hmne yha data.movieId ko array mai dalkr then usko insert kiya in movies of query
+         * that's why we use the $all, this is the imp case....
+         */
+        if(data && data.movieId){
+            query.movies = {$all: data.movieId}
+        }
         const response = await Theatre.find(query);
-        console.log(response);
         if(!response){
             return {
                 err: "No theatre records present !!",
@@ -158,6 +189,29 @@ async function updateMovieInTheatre(theatreId, movieIds, insert){
         throw error;
     }
 }
+// 1 means show, 0 means not show in the json object...
+async function getAllMoviesInTheatre(theatreId){
+    const response = await Theatre.findById(theatreId, {name : 1, address: 1, movies: 1});
+    if(!response){
+        return {
+            err: "no such theatre found for the provided id",
+            code: StatusCodes.NOT_FOUND
+        }
+        const theatre = await Theatre.findById(theatreId);
+        if(!theatre){
+            return {
+                err: "No such theatre found for the provided id",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return theatre.populate('movies');
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+    return response.populate('movies');
+}
+
 
 async function deleteTheatre(id){
     const findFirst = await Theatre.findOne({_id: id});
@@ -192,5 +246,6 @@ module.exports = {
     getAllTheatre,
     deleteTheatre,
     updateTheatre,
-    updateMovieInTheatre
+    updateMovieInTheatre,
+    getAllMoviesInTheatre
 }
