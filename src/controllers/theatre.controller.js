@@ -39,15 +39,20 @@ async function getTheatreById_controller(req,res){
     }
 }
 
-async function getAllTheatre_controller(req,res){
+async function updateMovieInTheatre_controller(req, res) {
     try {
-        const response = await theatreService.getAllTheatre(req.query);
+        const response = await theatreService.updateMovieInTheatre(
+            req.params.id,
+            req.body.movieIds,
+            req.body.insert
+        );
         if(response.err){
             ErrorResponse.error = response.err;
             return res.status(response.code).json(ErrorResponse);
         }
         SuccessResponse.data = response;
-        SuccessResponse.message = "SuccessFully fetched all the movies !!";
+        if(req.body.insert) SuccessResponse.message = "SuccessFully Adding the Movie in Theatre !!"
+        else SuccessResponse.message = "SuccessFully Removing the Movie from Theatre !!"
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
         ErrorResponse.error = error;
