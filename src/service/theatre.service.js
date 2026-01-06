@@ -43,7 +43,6 @@ async function getTheatreById(id){
     return theatre;
 }
 
-<<<<<<< HEAD
 async function getAllTheatre(data){
     try {
         let query = {};
@@ -70,8 +69,7 @@ async function getAllTheatre(data){
         console.log(error);
         throw error;
     }
-    
-=======
+} 
 /**
  * 
  * @param {*} theatreId -> unique id of theatre for which we want to update movies...
@@ -123,7 +121,6 @@ async function updateMovieInTheatre(theatreId, movieIds, insert) {
      * Isliye populate ko final updated theatre pr lgaya kyuki uss theatre ko hmm return kr rhe hai isliye....
      */
     return theatre.populate('movies');
->>>>>>> 8062d54b1ebd4df5f91b297a571c9f8147aa463a
 }
 
 async function deleteTheatre(id){
@@ -158,5 +155,6 @@ module.exports = {
     getTheatreById,
     getAllTheatre,
     deleteTheatre,
-    updateTheatre
+    updateTheatre,
+    updateMovieInTheatre
 }
