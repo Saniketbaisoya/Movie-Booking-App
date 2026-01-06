@@ -196,17 +196,6 @@ async function getAllMoviesInTheatre(theatreId){
             err: "no such theatre found for the provided id",
             code: StatusCodes.NOT_FOUND
         }
-        const theatre = await Theatre.findById(theatreId);
-        if(!theatre){
-            return {
-                err: "No such theatre found for the provided id",
-                code: StatusCodes.NOT_FOUND
-            }
-        }
-        return theatre.populate('movies');
-    } catch (error) {
-        console.log(error);
-        throw error;
     }
     return response.populate('movies');
 }
