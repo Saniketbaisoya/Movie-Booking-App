@@ -7,7 +7,6 @@ const Theatre = require("../models/theatre.model");
  * But if there is any other error which is related to server then this will be handled by the controller layer
  * Also the server related error is thrown by service but it is handled in controller layer
  */
-
 async function createTheatre(payloadData){
     const { name, address, description } = payloadData;
     const dataPresent = await Theatre.findOne({name, address, description});
