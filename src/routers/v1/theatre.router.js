@@ -50,4 +50,10 @@ theatreRouter.put('/:id',theatreController.updateTheatre_controller);
  * invoking the updateTheatre_controller in theatreRouter...
 */
 theatreRouter.get('/:id/movies',theatreController.getAllMoviesInTheatre_controller);
+
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:theatreId/movies/:movieId
+ * invoking the checkMovieInTheatre_controller in theatreRouter...
+*/
+theatreRouter.get('/:id/movies',theatreController.checkMovieInTheatre_controller);
 module.exports = theatreRouter;

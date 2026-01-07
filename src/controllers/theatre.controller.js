@@ -130,6 +130,23 @@ async function getAllMoviesInTheatre_controller(req,res){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+
+async function checkMovieInTheatre_controller(req, res){
+    try {
+        const response = await theatreService.checkMovieInTheatre(req.params.theatreId, req.params.movieId);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully checked this movie is in this theatre present or not !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     createTheare_controller,
     getAllTheatre_controller,
@@ -137,5 +154,6 @@ module.exports = {
     deleteTheatre_controller,
     updateTheatre_controller,
     updateMovieInTheatre_controller,
-    getAllMoviesInTheatre_controller
+    getAllMoviesInTheatre_controller,
+    checkMovieInTheatre_controller
 }
