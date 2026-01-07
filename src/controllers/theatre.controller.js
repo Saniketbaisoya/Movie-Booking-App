@@ -12,11 +12,29 @@ async function createTheare_controller(req,res){
             return res.status(response.code).json(ErrorResponse);
         }
         SuccessResponse.data = response;
-        SuccessResponse.message = "SuccessFully created the movie !!";
+        SuccessResponse.message = "SuccessFully created the theatre !!";
         return res.status(StatusCodes.CREATED).json(SuccessResponse);
     } catch (error) {
         ErrorResponse.error = error;
         ErrorResponse.message = "Not able to create the movie due to server error";
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+async function getAllTheatre_controller(req,res){
+    try {
+        const response = await theatreService.getAllTheatre(req.query);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched the  theatre!!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
@@ -29,7 +47,7 @@ async function getTheatreById_controller(req,res){
             return res.status(response.code).json(ErrorResponse);
         }
         SuccessResponse.data = response;
-        SuccessResponse.message = "SuccessFully fetched the movie !!";
+        SuccessResponse.message = "SuccessFully fetched the theatre !!";
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
         
@@ -78,9 +96,46 @@ async function deleteTheatre_controller(req,res){
     }
 }
 
+async function updateTheatre_controller(req,res){
+    try {
+        const response = await theatreService.updateTheatre(req.params.id, req.body);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully updated the theatre !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+async function getAllMoviesInTheatre_controller(req,res){
+    try {
+        const response = await theatreService.getAllMoviesInTheatre(req.params.id);
+        if(response.err){
+            ErrorResponse.error = response.err;
+            return res.status(response.code).json(ErrorResponse);
+        }
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched all movies in the given Theatre with the given id !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     createTheare_controller,
+    getAllTheatre_controller,
     getTheatreById_controller,
+    deleteTheatre_controller,
+    updateTheatre_controller,
     updateMovieInTheatre_controller,
-    deleteTheatre_controller
+    getAllMoviesInTheatre_controller
 }

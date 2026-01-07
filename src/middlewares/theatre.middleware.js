@@ -14,6 +14,10 @@ async function validateTheatreCreate(req,res,next){
         ErrorResponse.error = "The city of the theatre is required !!"
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
+    if(!req.body.address){
+        ErrorResponse.error = "The address of the theatre is required !!"
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+    }
     // if(!req.body.descriptiom){
     //     ErrorResponse.error = "The descriptiom of the theatre is required !!"
     //     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);

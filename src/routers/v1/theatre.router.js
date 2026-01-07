@@ -11,6 +11,12 @@ const theatreRouter = express.Router();
 theatreRouter.post('/', TheatreMiddleware.validateTheatreCreate, theatreController.createTheare_controller);
 
 /**
+ * http://localhost:9999/mba/api/v1/theatre/
+ * invoking the getAllTheatre_controller in theatreRouter...
+*/
+theatreRouter.get('/',theatreController.getAllTheatre_controller);
+
+/**
  * http://localhost:9999/mba/api/v1/theatre/:id --> (id is urlParams)
  * invoking the getTheatreById_controller in theatreRouter...
 */
@@ -27,4 +33,21 @@ theatreRouter.patch('/:id/movies', TheatreMiddleware.validateUpdateMovieInTheatr
 */
 theatreRouter.delete('/:id',theatreController.deleteTheatre_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.patch('/:id',theatreController.updateTheatre_controller);
+
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.put('/:id',theatreController.updateTheatre_controller);
+
+/**
+ * http://localhost:9999/mba/api/v1/theatre/:id/movies
+ * invoking the updateTheatre_controller in theatreRouter...
+*/
+theatreRouter.get('/:id/movies',theatreController.getAllMoviesInTheatre_controller);
 module.exports = theatreRouter;
