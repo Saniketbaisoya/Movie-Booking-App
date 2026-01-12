@@ -227,6 +227,33 @@ async function updateTheatre(id, data){
         }
     }
 }
+
+/**
+ * 
+ * @param {*} theatreId -> theatreId uss theatre ki jisme hme search krna hai movie ko
+ * @param {*} movieId -> yeah movieId uss movie ki hai jisko search krna hai inside the theatre which is given along with the given theatreId
+ * @returns response.movies.indexOf(movieId) != (-1) So sbse phele isme theatreId ka use krke hmne theatre find kiya now abb response mai pure theatre ka collection hai
+ * Now abb is response ke andr jakr hmm dekhege movies mai ki movieId jo given hai parameter mai voh present hai ki nhi
+ * Now yha response.movies krke pure movies of list ka access hai, Now isi ke upr hmne indexOf lgaya hai and indexOf mai hmne pass kiya movieId 
+ * Now indexOf return krta hai -1 or 1 now voh dekhega ki yeah movieId hmari present hai ki nhi agr hai toh return krega 1 and agr nhi hai toh -1
+ * Now yha hmne data ko numbers mai convert krdiya kyuki hmme bss yeah hi dekhna tha ki voh movie uss theatre mai available hai ki nhi 
+ * and at last we do response.movies,indexOf(movieId) != -1 => true and agr equal hua toh ayega false....
+ */
+async function checkMovieInTheatre(theatreId, movieId){
+    try {
+        const response = await Theatre.findById(theatreId);
+        if(!response){
+            return {
+                err: "No theatre found for the given id !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return response.movies.indexOf(movieId) != (-1);
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 module.exports = {
     createTheatre,
     getTheatreById,
@@ -234,5 +261,6 @@ module.exports = {
     deleteTheatre,
     updateTheatre,
     updateMovieInTheatre,
-    getAllMoviesInTheatre
+    getAllMoviesInTheatre,
+    checkMovieInTheatre
 }
