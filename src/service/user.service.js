@@ -38,7 +38,28 @@ async function signUp(data){
         throw error;
     }
 }
-
+/**
+ * Now yha hmm findOne ka use krr rhe hai and voh jb parameter expect krta hai to object ki form mai hme dena hoga yani key:value pair bnake....
+ * And pair bnake jb hmm dete hain toh voh object hain and voh usse wrap krne bejna hoga taki parse ho ske....
+*/
+async function getUserByEmail(email){
+    try {
+        const response = await User.findOne({
+            email: email
+        });
+        if(!response){
+            throw {
+                err: "No user found for the given email !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 module.exports = {
-    signUp
+    signUp,
+    getUserByEmail
 }
