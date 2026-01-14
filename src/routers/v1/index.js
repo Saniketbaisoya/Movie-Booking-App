@@ -15,6 +15,9 @@ v1Router.use('/movies',movieRouter); // invoking the movieRouter in v1Router...
 */
 v1Router.use('/theatre',theatreRouter); // invoking the theatreRouter in v1Router...
 
-v1Router.use('/user', userRouter);
+/**
+ * http://localhost:9999/mba/api/v1/user
+*/
+v1Router.use('/user', userRouter); // invoking the userRouter in v1Router...
 
 module.exports = v1Router;
