@@ -13,6 +13,6 @@ userRouter.post('/auth/signup', userMiddleware.userValidation, userController.si
 /**
  * http://localhost:9999/mba/v1/user/auth/signin
 */
-userRouter.post('/auth/signin',userController.signIn_controller);
+userRouter.post('/auth/signin', userMiddleware.validSignInRequest, userController.signIn_controller);
 
 module.exports = userRouter;

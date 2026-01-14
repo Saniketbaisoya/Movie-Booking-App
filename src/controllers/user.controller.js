@@ -48,7 +48,6 @@ async function signIn_controller(req, res){
             }
         }
         const token = await jwt.sign({id: user.id, email: user.email}, SECRET_KEY, {expiresIn: '1h'});
-        console.log(jwt.verify(token, SECRET_KEY));
         SuccessResponse.message = "SuccessFully logged in";
         SuccessResponse.data = {
             email: user.email,

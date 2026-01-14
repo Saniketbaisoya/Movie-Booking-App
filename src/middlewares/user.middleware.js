@@ -5,23 +5,38 @@ async function userValidation(req, res, next) {
     
     //validate the name in req.body
     if(!req.body.name){
-        ErrorResponse.message = "Name is not present inside the user request !!"
+        ErrorResponse.error = "Name is not present inside the user request !!"
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
 
     // validate the email in req.body
     if(!req.body.email){
-        ErrorResponse.message = "email is not present inside the user request !!"
+        ErrorResponse.error = "email is not present inside the user request !!"
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
 
     // validate the password in req.body
     if(!req.body.password){
-        ErrorResponse.message = "password is not present inside the user request !!"
+        ErrorResponse.error = "password is not present inside the user request !!"
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
     next();
 }
+
+async function validSignInRequest(req, res, next){
+    // validate the email in req.body
+    if(!req.body.email){
+        ErrorResponse.error = "no email provied for sign in !!";
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse); 
+    }
+    // validate the password in req.body
+    if(!req.body.password){
+        ErrorResponse.error = "no password provided for sign in !!";
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse); 
+    }
+    next();
+}
 module.exports = {
-    userValidation
+    userValidation,
+    validSignInRequest
 };
