@@ -59,7 +59,24 @@ async function getUserByEmail(email){
         throw error;
     }
 }
+
+async function getUserById(userId){
+    try {
+        const response = await User.findById(userId);
+        if(!response){
+            throw {
+                err: "User not found for the provied id !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 module.exports = {
     signUp,
-    getUserByEmail
+    getUserByEmail,
+    getUserById
 }
