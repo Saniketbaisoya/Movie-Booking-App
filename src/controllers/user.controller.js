@@ -9,6 +9,10 @@ async function signUp_controller(req, res){
         SuccessResponse.message = "SuccessFully created the user !!";
         return res.status(StatusCodes.CREATED).json(SuccessResponse);
     } catch (error) {
+        if(error.err){
+            ErrorResponse.error = error.err;
+            return res.status(error.code).json(ErrorResponse);
+        }
         ErrorResponse.error = error;
         ErrorResponse.message = error.message;
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
