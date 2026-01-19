@@ -85,6 +85,8 @@ async function validateResetPassword(req, res, next) {
     next();
 };
 
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
 async function isAdmin(req, res, next) {
     const user = await userService.getUserById(req.user);
     if(user.userRole != "ADMIN"){
@@ -94,6 +96,8 @@ async function isAdmin(req, res, next) {
     next();
 };
 
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
 async function isClient(req, res, next){
     const user = await userService.getUserById(req.user);
     if(user.userRole != "CLIENT"){
@@ -103,10 +107,13 @@ async function isClient(req, res, next){
     next();
 };
 
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
 async function isAdminOrClient(req, res, next){
     const user = await userService.getUserById(req.user);
     if(user.userRole != "ADMIN" || user.userRole != "CLIENT"){
         ErrorResponse.error = "User is neither a client not an admin, cannot proceed with the request !!";
+        return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
     }
     next();
 };
