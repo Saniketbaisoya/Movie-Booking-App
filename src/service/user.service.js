@@ -75,8 +75,40 @@ async function getUserById(userId){
         throw error;
     }
 }
+
+async function updateUserRoleOrUserStatus(data, userId){
+    try {
+        let updateQuery = {};
+        if(data && data.userStatus){
+            updateQuery.userStatus = data.userStatus;
+        }
+        if(data && data.userRole){
+            updateQuery.userRole = data.userRole;
+        }
+        const response = await User.findByIdAndUpdate({
+            id: userId
+        },updateQuery, {new: true, runValidators: true});
+        if(!response){
+            throw {
+                err: "no user found for the provided id !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        if(error.name == 'ValidationError'){
+            let err = {};
+            Object.keys(error.errors).map((key)=> {
+                err[key] = error.errors[key].message;
+            })
+            throw { err: err, code: StatusCodes.UNPROCESSABLE_ENTITY };
+        }
+        throw error;
+    }
+}
 module.exports = {
     signUp,
     getUserByEmail,
-    getUserById
+    getUserById,
+    updateUserRoleOrUserStatus
 }
