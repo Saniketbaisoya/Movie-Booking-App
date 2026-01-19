@@ -15,4 +15,9 @@ userRouter.post('/auth/signup', userMiddleware.userValidation, userController.si
 */
 userRouter.post('/auth/signin', userMiddleware.validSignInRequest, userController.signIn_controller);
 
+/**
+ * http://localhost:9999/mba/v1/user/auth/reset
+*/
+userRouter.patch('/auth/reset', userMiddleware.isAuthenticated, userController.resetPassword_controller);
+
 module.exports = userRouter;

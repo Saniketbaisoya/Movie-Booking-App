@@ -71,7 +71,35 @@ async function signIn_controller(req, res){
     }
 }
 
+async function resetPassword_controller(req, res) {
+    try {
+        // Now we want to find the user corressponding to the userId
+        // And yeah userId hmme milegi from the isAuthenticated middleware
+        const user = await userService.getUserById(req.user);
+        const oldPasswordValidation = await user.validPassword(req.body.oldPassword);
+        if(!oldPasswordValidation){
+            throw {
+                err: "Invalid old password, please write the correct old password !!",
+                code: StatusCodes.BAD_REQUEST
+            }
+        }
+        user.password = req.body.newPassword;
+        await user.save();
+        SuccessResponse.data = user;
+        SuccessResponse.message = "SuccessFully update the password !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        if(error.err){
+            ErrorResponse.error = error.err;
+            return res.status(error.code).json(ErrorResponse);
+        }
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
     signUp_controller,
-    signIn_controller
+    signIn_controller,
+    resetPassword_controller
 }

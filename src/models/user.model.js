@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
  * with the stored encrypted password 
  * @param  plainPassword -> input password given by the user in signin request.body
  * @returns it will return the true/false boolean which denote wheather the password is same or not ?
- */
+*/
 userSchema.methods.validPassword = async function (plainPassword) {
     const currentUser = this;
     const compare = await bcrypt.compare(plainPassword, currentUser.password);
