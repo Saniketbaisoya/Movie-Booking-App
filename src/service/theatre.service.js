@@ -24,7 +24,7 @@ async function createTheatre(payloadData){
         }else if(dataPresent.description == description ){
             message = "This theatre is already present at this description";
         }
-        return {
+        throw {
             err: message, 
             code: StatusCodes.UNPROCESSABLE_ENTITY
         };  
@@ -39,7 +39,7 @@ async function createTheatre(payloadData){
             Object.keys(error.errors).forEach((key)=> {
                 err[key] = error.errors[key].message
             });
-            return {
+            throw {
                 err: err,
                 code: StatusCodes.UNPROCESSABLE_ENTITY
             };
@@ -53,7 +53,7 @@ async function createTheatre(payloadData){
 async function getTheatreById(id){
     const theatre = await Theatre.findById({_id: id});
     if(!theatre){
-        return {
+        throw {
             err: "No theatre found for the given id",
             code: StatusCodes.NOT_FOUND
         }
@@ -87,7 +87,7 @@ async function getAllTheatre(data){
         }
         const response = await Theatre.find(query);
         if(!response){
-            return {
+            throw {
                 err: "No theatre records present !!",
                 code: StatusCodes.NOT_FOUND
             }
@@ -98,7 +98,7 @@ async function getAllTheatre(data){
         console.log(error);
         throw error;
     }
-} 
+}
 /**
  * 
  * @param {*} theatreId -> unique id of theatre for which we want to update movies...
@@ -176,7 +176,7 @@ async function updateMovieInTheatre(theatreId, movieIds, insert){
         }
         const theatre = await Theatre.findById(theatreId);
         if(!theatre){
-            return {
+            throw {
                 err: "No such theatre found for the provided id",
                 code: StatusCodes.NOT_FOUND
             }
@@ -191,7 +191,7 @@ async function updateMovieInTheatre(theatreId, movieIds, insert){
 async function getAllMoviesInTheatre(theatreId){
     const response = await Theatre.findById(theatreId, {name : 1, address: 1, movies: 1});
     if(!response){
-        return {
+        throw {
             err: "no such theatre found for the provided id",
             code: StatusCodes.NOT_FOUND
         }
@@ -203,14 +203,14 @@ async function getAllMoviesInTheatre(theatreId){
 async function deleteTheatre(id){
     const findFirst = await Theatre.findOne({_id: id});
     if(!findFirst){
-        return{
+        throw {
             err: "No theatre found for the given id",
             code: StatusCodes.NOT_FOUND
         }
     }
     const response = await Theatre.deleteOne({_id: id});
     if(response.deletedCount == 0){
-        return{
+        throw {
             err: 'No theatre is presnt for further deletion !!',
             code: StatusCodes.NOT_ACCEPTABLE
         }
@@ -221,7 +221,7 @@ async function deleteTheatre(id){
 async function updateTheatre(id, data){
     const response = await Theatre.findByIdAndUpdate(id, data);
     if(!response){
-        return {
+        throw {
             err: "No theatre found for the given id",
             code: StatusCodes.NOT_FOUND
         }
@@ -243,7 +243,7 @@ async function checkMovieInTheatre(theatreId, movieId){
     try {
         const response = await Theatre.findById(theatreId);
         if(!response){
-            return {
+            throw {
                 err: "No theatre found for the given id !!",
                 code: StatusCodes.NOT_FOUND
             }
