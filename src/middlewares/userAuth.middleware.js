@@ -24,7 +24,7 @@ async function userAuthValidation(req, res, next) {
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
     next();
-}
+};
 
 async function validSignInRequest(req, res, next){
     // validate the email in req.body
@@ -38,7 +38,7 @@ async function validSignInRequest(req, res, next){
         return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse); 
     }
     next();
-}
+};
 
 async function isAuthenticated(req, res, next){
     try {
@@ -69,7 +69,7 @@ async function isAuthenticated(req, res, next){
         ErrorResponse.message = error.message;
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
-}
+};
 
 async function validateResetPassword(req, res, next) {
     // validate oldPassword presence
@@ -83,10 +83,47 @@ async function validateResetPassword(req, res, next) {
         return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
     }
     next();
-}
+};
+
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
+async function isAdmin(req, res, next) {
+    const user = await userService.getUserById(req.user);
+    if(user.userRole != "ADMIN"){
+        ErrorResponse.error = "User is not an admin, cannot proceed with the request !!";
+        return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
+    }
+    next();
+};
+
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
+async function isClient(req, res, next){
+    const user = await userService.getUserById(req.user);
+    if(user.userRole != "CLIENT"){
+        ErrorResponse.error = "User is not an client, cannot proceed with the request !!";
+        return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
+    }
+    next();
+};
+
+// Now yha maine raw strings use kri hai in the condition, which is not good 
+// toh usko change krege by the enum based property define in the userSchema later...
+async function isAdminOrClient(req, res, next){
+    const user = await userService.getUserById(req.user);
+    if(user.userRole != "ADMIN" || user.userRole != "CLIENT"){
+        ErrorResponse.error = "User is neither a client not an admin, cannot proceed with the request !!";
+        return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
+    }
+    next();
+};
+
 module.exports = {
     userAuthValidation,
     validSignInRequest,
     isAuthenticated,
-    validateResetPassword
+    validateResetPassword,
+    isAdmin,
+    isClient,
+    isAdminOrClient
 };
