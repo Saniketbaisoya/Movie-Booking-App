@@ -94,7 +94,7 @@ async function updateUserRoleOrUserStatus(data, userId){
                 code: StatusCodes.NOT_FOUND
             }
         }
-    } catch (error) {
+    }catch (error) {
         console.log(error);
         if(error.name == 'ValidationError'){
             let err = {};

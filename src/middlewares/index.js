@@ -1,5 +1,6 @@
 module.exports = {
     MovieMiddleWare: require('./movie.middleware'),
     TheatreMiddleware: require('./theatre.middleware'),
-    userMiddleware: require('./userAuth.middleware')
+    userAuthMiddleware: require('./userAuth.middleware'),
+    userMiddleware: require('./user.middleware')
 }
