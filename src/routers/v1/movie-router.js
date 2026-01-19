@@ -1,15 +1,20 @@
 const express = require('express');
 const { movieController } = require('../../controllers');
-const { MovieMiddleWare } = require('../../middlewares');
+const { MovieMiddleWare, userAuthMiddleware } = require('../../middlewares');
 
 const movieRouter = express.Router();
 
 
 /**
  * http://localhost:9999/mba/api/v1/movies/
- * invoking the movieCreate_controller + createMovieMiddleware in movieRouter...
+ * invoking the movieCreate_controller + createMovieMiddleware + isAuthenticated + isAdminOrClient in movieRouter...
 */
-movieRouter.post('/', MovieMiddleWare.validateMovieCreate, movieController.movieCreate_controller);
+movieRouter.post('/',
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdminOrClient,
+    MovieMiddleWare.validateMovieCreate, 
+    movieController.movieCreate_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
@@ -19,21 +24,33 @@ movieRouter.get('/:movieId', movieController.getMovieById_controller);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
- * invoking the deleteMovie_controller in movieRouter...
+ * invoking the deleteMovie_controller + isAuthenticated + isAdminOrClient in movieRouter...
 */
-movieRouter.delete('/:movieId', movieController.deleteMovie_controller);
+movieRouter.delete('/:movieId', 
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdminOrClient,
+    movieController.deleteMovie_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
- * invoking the updateMovie_controller in movieRouter...
+ * invoking the updateMovie_controller + isAuthenticated + isAdminOrClient in movieRouter...
 */
-movieRouter.put('/:movieId',movieController.updateMovie_controller);
+movieRouter.put('/:movieId',
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdminOrClient,
+    movieController.updateMovie_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId
- * invoking the updateMovie_controller in movieRouter...
+ * invoking the updateMovie_controller + isAuthenticated + isAdminOrClient in movieRouter...
 */
-movieRouter.patch('/:movieId',movieController.updateMovie_controller);
+movieRouter.patch('/:movieId',
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdminOrClient,
+    movieController.updateMovie_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/movies/:movieId

@@ -12,7 +12,7 @@ async function createMovie(data) {
             Object.keys(error.errors).forEach((key)=> {
                 err[key] =  error.errors[key].message;
             });
-            return {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
+            throw {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
         }else {
             throw error;
         }
@@ -33,7 +33,7 @@ async function getMovieById(id) {
 async function deleteMovie(id) {
     const findFirst = await Movie.findById(id);
     if(!findFirst){
-        return{
+        throw{
             err: "No movie record found for the id provided !!",
             code: StatusCodes.NOT_FOUND
         }
@@ -47,7 +47,7 @@ async function deleteMovie(id) {
      * So we throw a custom error in err with StatusCodes.NOT_FOUND in code to controller
      */
     if(response.deletedCount == 0){
-        return {
+        throw {
             err: "No movie found for further deletion !!",
             code: StatusCodes.NOT_ACCEPTABLE
         }
@@ -71,7 +71,7 @@ async function updateMovie(id, data){
             Object.keys(error.errors).forEach((key)=> {
                 err[key] =  error.errors[key].message;
             });
-            return {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
+            throw {err: err, code: StatusCodes.UNPROCESSABLE_ENTITY};
         }else {
             throw error;
         }
@@ -86,7 +86,7 @@ async function searchMovie(filterData){
     }
     let movies = await Movie.find(query);
     if(movies.length <= 0){
-        return {err: "Not able to fetch the query movies", code: StatusCodes.NOT_FOUND};
+        throw {err: "Not able to fetch the query movies", code: StatusCodes.NOT_FOUND};
     }
     return movies;
 }
