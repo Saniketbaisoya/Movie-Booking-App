@@ -85,9 +85,7 @@ async function updateUserRoleOrUserStatus(data, userId){
         if(data && data.userRole){
             updateQuery.userRole = data.userRole;
         }
-        const response = await User.findByIdAndUpdate({
-            id: userId
-        },updateQuery, {new: true, runValidators: true});
+        const response = await User.findByIdAndUpdate(userId, updateQuery, {new: true, runValidators: true});
         if(!response){
             throw {
                 err: "no user found for the provided id !!",
