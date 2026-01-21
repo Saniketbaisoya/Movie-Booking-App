@@ -8,7 +8,12 @@ const theatreRouter = express.Router();
  * http://localhost:9999/mba/api/v1/theatre/
  * invoking the createTheare_controller + isAuthenticated + isAdminOrClient + TheatreMiddleware in theatreRouter...
 */
-theatreRouter.post('/', userAuthMiddleware.isAuthenticated, userAuthMiddleware.isAdminOrClient, TheatreMiddleware.validateTheatreCreate, theatreController.createTheare_controller);
+theatreRouter.post('/', 
+    userAuthMiddleware.isAuthenticated, 
+    userAuthMiddleware.isAdminOrClient, 
+    TheatreMiddleware.validateTheatreCreate, 
+    theatreController.createTheare_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/theatre/
@@ -31,23 +36,35 @@ theatreRouter.patch('/:id/movies', TheatreMiddleware.validateUpdateMovieInTheatr
  * http://localhost:9999/mba/api/v1/theatre/:id
  * invoking the deleteTheatre_controller + isAuthenticated + isAdminOrClient in theatreRouter...
 */
-theatreRouter.delete('/:id', userAuthMiddleware.isAuthenticated, userAuthMiddleware.isAdminOrClient, theatreController.deleteTheatre_controller);
+theatreRouter.delete('/:id', 
+    userAuthMiddleware.isAuthenticated, 
+    userAuthMiddleware.isAdminOrClient, 
+    theatreController.deleteTheatre_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/theatre/:id
  * invoking the updateTheatre_controller + isAuthenticated + isAdminOrClient in theatreRouter...
 */
-theatreRouter.patch('/:id',userAuthMiddleware.isAuthenticated, userAuthMiddleware.isAdminOrClient, theatreController.updateTheatre_controller);
+theatreRouter.patch('/:id',
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdminOrClient, 
+    theatreController.updateTheatre_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/theatre/:id
  * invoking the updateTheatre_controller + isAuthenticated + isAdminOrClient in theatreRouter...
 */
-theatreRouter.put('/:id',userAuthMiddleware.isAuthenticated, userAuthMiddleware.isAdminOrClient, theatreController.updateTheatre_controller);
+theatreRouter.put('/:id', 
+    userAuthMiddleware.isAuthenticated, 
+    userAuthMiddleware.isAdminOrClient, 
+    theatreController.updateTheatre_controller
+);
 
 /**
  * http://localhost:9999/mba/api/v1/theatre/:id/movies
- * invoking the updateTheatre_controller in theatreRouter...
+ * invoking the getAllMoviesInTheatre_controller in theatreRouter...
 */
 theatreRouter.get('/:id/movies',theatreController.getAllMoviesInTheatre_controller);
 

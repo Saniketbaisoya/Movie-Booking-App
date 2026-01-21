@@ -219,13 +219,14 @@ async function deleteTheatre(id){
 }
 
 async function updateTheatre(id, data){
-    const response = await Theatre.findByIdAndUpdate(id, data);
+    const response = await Theatre.findByIdAndUpdate(id, data, {new: true, runValidators: true});
     if(!response){
         throw {
             err: "No theatre found for the given id",
             code: StatusCodes.NOT_FOUND
         }
     }
+    return response;
 }
 
 /**
