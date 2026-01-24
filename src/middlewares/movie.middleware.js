@@ -35,7 +35,6 @@ async function validateMovieCreate(req, res, next) {
         return res.status(StatusCodes.BAD_REQUEST).json(BadRequestError);
     }
     next();
-    
 }
 module.exports = {
     validateMovieCreate
