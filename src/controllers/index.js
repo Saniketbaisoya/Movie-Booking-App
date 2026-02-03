@@ -2,6 +2,7 @@ module.exports = {
     movieController : require('./movie.controller.js'),
     theatreController : require('./theatre.controller.js'),
     userAuthController : require('./userAuth.controller.js'),
-    userController : require('./user.controller.js')
+    userController : require('./user.controller.js'),
+    bookingController: require('./booking.controller.js')
 }
     
