@@ -42,7 +42,46 @@ async function updateBooking(id, data){
         }
     }
 }
+
+/**
+ * Now data mai userId hi isliye li kyuki jis user ne login kiya hua hoga, uski sari bookings hme chahiye usne jo booking create kri hain....
+ * Apne ap ko authenticate krke, Now userId hme again isAuthenticated ke middleware se hi milegi...
+ * @param {*} data => userId
+*/
+async function getBookingById(data){
+    try {
+        const response = await Booking.find({ userId: data.userId });
+        if(!response){
+            throw {
+                err: "No booking found for the given user !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getAllBookings() {
+    try {
+        const response = await Booking.find();
+        if(!response){
+            throw {
+                err: "No booking found !!",
+                code: StatusCodes.NOT_FOUND
+            }
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 module.exports = {
     createBooking,
-    updateBooking
+    updateBooking,
+    getBookingById,
+    getAllBookings
 }

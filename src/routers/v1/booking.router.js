@@ -18,4 +18,21 @@ bookingRouter.post('/',
  */
 bookingRouter.patch('/:id', bookingController.updateBooking_controller);
 
+/**
+ * http://localhost:9999/mba/api/v1/booking/
+ */
+bookingRouter.get('/', 
+    userAuthMiddleware.isAuthenticated, 
+    bookingController.getBookingById_controller
+);
+
+/**
+ * http://localhost:9999/mba/api/v1/booking/all
+ */
+bookingRouter.get('/all', 
+    userAuthMiddleware.isAuthenticated,
+    userAuthMiddleware.isAdmin,
+    bookingController.getAllBookings_controller
+);
+
 module.exports = bookingRouter;

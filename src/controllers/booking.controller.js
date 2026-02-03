@@ -43,7 +43,44 @@ async function updateBooking_controller(req, res) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+
+async function getBookingById_controller(req, res) {
+    try {
+        const response = await BookingService.getBookingById({userId: req.user});
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched all user bookings !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        if(error.err){
+            ErrorResponse.error = error.err;
+            return res.status(error.code).json(ErrorResponse);
+        }
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+async function getAllBookings_controller(req, res) {
+    try {
+        const response = await BookingService.getAllBookings();
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully fetched all bookings !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        if(error.err){
+            ErrorResponse.error = error.err;
+            return res.status(error.code).json(ErrorResponse);
+        }
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createBooking_Controller,
-    updateBooking_controller
+    updateBooking_controller,
+    getBookingById_controller,
+    getAllBookings_controller
 }
