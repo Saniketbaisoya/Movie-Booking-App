@@ -17,6 +17,7 @@ app.use('/mba/api',router); // invoking the router in app.
 
 
 app.listen(PORT,async ()=> {
+    
     await connectDb();
     console.log(`Successfully run the server at ${PORT}!!`);
 });
