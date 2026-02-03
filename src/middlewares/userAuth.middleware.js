@@ -35,7 +35,7 @@ async function validSignInRequest(req, res, next){
     // validate the password in req.body
     if(!req.body.password){
         ErrorResponse.error = "no password provided for sign in !!";
-        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse); 
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
     }
     next();
 };
@@ -107,7 +107,7 @@ async function isClient(req, res, next){
     next();
 };
 
-// Now yha maine raw strings use kri hai in the condition, which is not good 
+// Now yha maine raw strings use kra hai in the condition, which is not good 
 // toh usko change krege by the enum based property define in the userSchema later...
 async function isAdminOrClient(req, res, next){
     const user = await userService.getUserById(req.user);
