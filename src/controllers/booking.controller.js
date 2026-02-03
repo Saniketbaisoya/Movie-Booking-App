@@ -27,6 +27,23 @@ async function createBooking_Controller(req, res) {
     }
 }
 
+async function updateBooking_controller(req, res) {
+    try {
+        const response = await BookingService.updateBooking(req.params.id, req.body);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "SuccessFully updated the bookings !!";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        if(error.err){
+            ErrorResponse.error = error.err;
+            return res.status(error.code).json(ErrorResponse);
+        }
+        ErrorResponse.error = error;
+        ErrorResponse.message = error.message;
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
 module.exports = {
-    createBooking_Controller
+    createBooking_Controller,
+    updateBooking_controller
 }

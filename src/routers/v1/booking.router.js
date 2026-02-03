@@ -13,4 +13,9 @@ bookingRouter.post('/',
     bookingController.createBooking_Controller
 );
 
+/**
+ * http://localhost:9999/mba/api/v1/booking/:id
+ */
+bookingRouter.patch('/:id', bookingController.updateBooking_controller);
+
 module.exports = bookingRouter;
