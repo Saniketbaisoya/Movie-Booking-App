@@ -3,5 +3,6 @@ module.exports = {
     TheatreMiddleware: require('./theatre.middleware'),
     userAuthMiddleware: require('./userAuth.middleware'),
     userMiddleware: require('./user.middleware'),
-    bookingMiddleware: require('./booking.middleware')
+    bookingMiddleware: require('./booking.middleware'),
+    showMiddleware: require('./show.middleware')
 }
